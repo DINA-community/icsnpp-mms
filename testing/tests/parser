@@ -1,0 +1,6 @@
+# We convert der -> xml -> der and check whether input and output are identical.
+
+@TEST-EXEC: PATH=$ZEEK_PLUGIN_PATH test-parser "$TRACES/pdus.der" > pdus.xml 2>&1
+@TEST-EXEC: btest-diff pdus.xml
+@TEST-EXEC: PATH=$ZEEK_PLUGIN_PATH test-parser -ixer pdus.xml -oder > pdus.der 2>&1
+@TEST-EXEC: diff -q "$TRACES/pdus.der" pdus.der

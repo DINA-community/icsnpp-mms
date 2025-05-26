@@ -1,0 +1,3 @@
+This plugin provides a protocol analyzer for the Manufacturing Message
+Specification (MMS) protocol (IEC 61850) for use within Zeek. The analyzer
+enables Zeek to parse MMS messages.
