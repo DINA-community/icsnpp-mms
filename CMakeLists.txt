@@ -29,18 +29,25 @@ include(ZeekPlugin)
 
 zeek_plugin_begin(OSS MMS)
 
+# The following line is manually added!
+zeek_plugin_link_library(asn1c)
+
 file(GLOB cc_files RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "plugin/src/*.cc")
 foreach(file ${cc_files})
     zeek_plugin_cc(${file})
 endforeach ()
 
-file(GLOB c_files RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "plugin/src/asn1c/*.c")
-foreach(file ${c_files})
-    zeek_plugin_cc(${file})
+file(GLOB bif_files RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "plugin/src/*.bif")
+foreach(file ${bif_files})
+    zeek_plugin_bif(${file})
 endforeach ()
 
 zeek_plugin_dist_files(README CHANGES COPYING VERSION)
 zeek_plugin_end()
+
+# manually added as workaround for https://github.com/zeek/package-template/issues/35
+zeek_get_dynamic_plugin_target(target_name OSS MMS)
+add_custom_command(TARGET "${target_name}_symlink" POST_BUILD COMMAND "${CMAKE_COMMAND}" -E create_symlink "${CMAKE_CURRENT_SOURCE_DIR}/plugin/scripts" scripts)
 
 if ("${PROJECT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
     # Allows building rpm/deb packages via "make package" in build dir.
