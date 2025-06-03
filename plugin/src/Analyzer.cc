@@ -24,6 +24,14 @@ void Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t, c
     // For debugging purposes
     //asn_fprint(stdout, desc, pdu_raw);
 
+    char errbuf[128];
+    size_t errlen = sizeof(errbuf)/sizeof(errbuf[0]);
+    if(asn_check_constraints(desc, pdu_raw, errbuf, &errlen)) {
+        Weird("mms_constraint_error", errbuf);
+        desc->free_struct(desc, pdu_raw, 0);
+        return;
+    }
+
     auto pdu=process_MmsPdu(pdu_raw);
 
     desc->free_struct(desc, pdu_raw, 0);
