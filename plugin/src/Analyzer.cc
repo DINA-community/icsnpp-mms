@@ -1,6 +1,7 @@
 #include "Analyzer.h"
 #include "Plugin.h"
 #include "process.h"
+#include "events.bif.h"
 
 #include <zeek/analyzer/Manager.h>
 
@@ -11,8 +12,6 @@ namespace zeek::plugin::mms {
 Analyzer::Analyzer(const char* name, zeek::Connection* c) : zeek::analyzer::Analyzer(name, c) {}
 
 void Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t, const IP_Hdr*, int) {
-    static const auto event = event_registry->Lookup(MMS_PDU_EVENT);
-
     MmsPdu *pdu_raw = NULL;
     auto desc = &asn_DEF_MmsPdu;
 
@@ -33,10 +32,9 @@ void Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t, c
     }
 
     auto pdu=process_MmsPdu(pdu_raw);
-
     desc->free_struct(desc, pdu_raw, 0);
     
-    EnqueueConnEvent(event, ConnVal(), val_mgr->Bool(orig), pdu);
+    zeek::BifEvent::mms::enqueue_mms_pdu(this, Conn(), orig, pdu);
 }
 
 } // namespace zeek::plugin::mms

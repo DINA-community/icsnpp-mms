@@ -1,0 +1,3 @@
+module mms;
+
+event mms_pdu%(c: connection, is_orig: bool, apdu: MmsPdu%);
