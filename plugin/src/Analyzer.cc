@@ -12,8 +12,8 @@ namespace zeek::plugin::mms {
 Analyzer::Analyzer(const char* name, zeek::Connection* c) : zeek::analyzer::Analyzer(name, c) {}
 
 void Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t, const IP_Hdr*, int) {
-    MmsPdu *pdu_raw = NULL;
-    auto desc = &asn_DEF_MmsPdu;
+    MMSpdu *pdu_raw = NULL;
+    auto desc = &asn_DEF_MMSpdu;
 
     asn_dec_rval_t rval = ber_decode(nullptr, desc, reinterpret_cast<void**>(&pdu_raw), data, len);
     if(rval.code != RC_OK) {
@@ -31,7 +31,7 @@ void Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t, c
         return;
     }
 
-    auto pdu=process_MmsPdu(pdu_raw);
+    auto pdu=process_MMSpdu(pdu_raw);
     desc->free_struct(desc, pdu_raw, 0);
     
     zeek::BifEvent::mms::enqueue_mms_pdu(this, Conn(), orig, pdu);
