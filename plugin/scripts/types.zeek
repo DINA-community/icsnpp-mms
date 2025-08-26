@@ -539,21 +539,21 @@ export {
   type ServiceError: record {
     errorClass: record {
       vmd_state: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_vmd_state_other = 0,
         vmd_state_conflict = 1,
         vmd_operational_problem = 2,
         domain_transfer_problem = 3,
         state_machine_id_invalid = 4,
       } &optional;
       application_reference: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_application_reference_other = 0,
         aplication_unreachable = 1,
         connection_lost = 2,
         application_reference_invalid = 3,
         context_unsupported = 4,
       } &optional;
       definition: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_definition_other = 0,
         ServiceError_object_undefined = 1,
         ServiceError_invalid_address = 2,
         ServiceError_type_unsupported = 3,
@@ -562,7 +562,7 @@ export {
         ServiceError_object_attribute_inconsistent = 6,
       } &optional;
       resource: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_resource_other = 0,
         memory_unavailable = 1,
         processor_resource_unavailable = 2,
         mass_storage_unavailable = 3,
@@ -570,7 +570,7 @@ export {
         capability_unknown = 5,
       } &optional;
       service: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_service_other = 0,
         primitives_out_of_sequence = 1,
         object_sate_conflict = 2,
         pdu_size = 3,
@@ -578,24 +578,24 @@ export {
         object_constraint_conflict = 5,
       } &optional;
       service_preempt: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_service_preempt_other = 0,
         _timeout = 1,
         deadlock = 2,
         ServiceError__cancel = 3,
       } &optional;
       time_resolution: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_time_resolution_other = 0,
         unsupportable_time_resolution = 1,
       } &optional;
       access: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_access_other = 0,
         ServiceError_object_access_unsupported = 1,
         ServiceError_object_non_existent = 2,
         ServiceError_object_access_denied = 3,
         ServiceError_object_invalidated = 4,
       } &optional;
       initiate: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_initiate_other = 0,
         version_incompatible = 1,
         max_segment_insufficient = 2,
         max_services_outstanding_calling_insufficient = 3,
@@ -605,16 +605,16 @@ export {
         nesting_level_insufficient = 7,
       } &optional;
       conclude: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass_conclude_other = 0,
         further_communication_required = 1,
       } &optional;
       _cancel: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass__cancel_other = 0,
         invoke_id_unknown = 1,
         cancel_not_possible = 2,
       } &optional;
       _file: enum {
-        ServiceError_other = 0,
+        ServiceError_errorClass__file_other = 0,
         filename_ambiguous = 1,
         file_busy = 2,
         filename_syntax_error = 3,
@@ -1501,37 +1501,37 @@ export {
     originalInvokeID: Unsigned32 &optional;
     rejectReason: record {
       confirmed_requestPDU: enum {
-        RejectPDU_other = 0,
-        unrecognized_service = 1,
+        RejectPDU_rejectReason_confirmed_requestPDU_other = 0,
+        RejectPDU_rejectReason_confirmed_requestPDU_unrecognized_service = 1,
         unrecognized_modifier = 2,
-        invalid_invokeID = 3,
-        invalid_argument = 4,
+        RejectPDU_rejectReason_confirmed_requestPDU_invalid_invokeID = 3,
+        RejectPDU_rejectReason_confirmed_requestPDU_invalid_argument = 4,
         invalid_modifier = 5,
         max_serv_outstanding_exceeded = 6,
-        max_recursion_exceeded = 8,
-        value_out_of_range = 9,
+        RejectPDU_rejectReason_confirmed_requestPDU_max_recursion_exceeded = 8,
+        RejectPDU_rejectReason_confirmed_requestPDU_value_out_of_range = 9,
       } &optional;
       confirmed_responsePDU: enum {
-        RejectPDU_other = 0,
-        unrecognized_service = 1,
-        invalid_invokeID = 2,
-        invalid_result = 3,
-        max_recursion_exceeded = 5,
-        value_out_of_range = 6,
+        RejectPDU_rejectReason_confirmed_responsePDU_other = 0,
+        RejectPDU_rejectReason_confirmed_responsePDU_unrecognized_service = 1,
+        RejectPDU_rejectReason_confirmed_responsePDU_invalid_invokeID = 2,
+        RejectPDU_rejectReason_confirmed_responsePDU_invalid_result = 3,
+        RejectPDU_rejectReason_confirmed_responsePDU_max_recursion_exceeded = 5,
+        RejectPDU_rejectReason_confirmed_responsePDU_value_out_of_range = 6,
       } &optional;
       confirmed_errorPDU: enum {
-        RejectPDU_other = 0,
-        unrecognized_service = 1,
-        invalid_invokeID = 2,
-        invalid_serviceError = 3,
-        value_out_of_range = 4,
+        RejectPDU_rejectReason_confirmed_errorPDU_other = 0,
+        RejectPDU_rejectReason_confirmed_errorPDU_unrecognized_service = 1,
+        RejectPDU_rejectReason_confirmed_errorPDU_invalid_invokeID = 2,
+        RejectPDU_rejectReason_confirmed_errorPDU_invalid_serviceError = 3,
+        RejectPDU_rejectReason_confirmed_errorPDU_value_out_of_range = 4,
       } &optional;
       unconfirmedPDU: enum {
-        RejectPDU_other = 0,
-        unrecognized_service = 1,
-        invalid_argument = 2,
-        max_recursion_exceeded = 3,
-        value_out_of_range = 4,
+        RejectPDU_rejectReason_unconfirmedPDU_other = 0,
+        RejectPDU_rejectReason_unconfirmedPDU_unrecognized_service = 1,
+        RejectPDU_rejectReason_unconfirmedPDU_invalid_argument = 2,
+        RejectPDU_rejectReason_unconfirmedPDU_max_recursion_exceeded = 3,
+        RejectPDU_rejectReason_unconfirmedPDU_value_out_of_range = 4,
       } &optional;
       pdu_error: enum {
         unknown_pdu_type = 0,
@@ -1539,31 +1539,31 @@ export {
         illegal_acse_mapping = 2,
       } &optional;
       cancel_requestPDU: enum {
-        RejectPDU_other = 0,
-        invalid_invokeID = 1,
+        RejectPDU_rejectReason_cancel_requestPDU_other = 0,
+        RejectPDU_rejectReason_cancel_requestPDU_invalid_invokeID = 1,
       } &optional;
       cancel_responsePDU: enum {
-        RejectPDU_other = 0,
-        invalid_invokeID = 1,
+        RejectPDU_rejectReason_cancel_responsePDU_other = 0,
+        RejectPDU_rejectReason_cancel_responsePDU_invalid_invokeID = 1,
       } &optional;
       cancel_errorPDU: enum {
-        RejectPDU_other = 0,
-        invalid_invokeID = 1,
-        invalid_serviceError = 2,
-        value_out_of_range = 3,
+        RejectPDU_rejectReason_cancel_errorPDU_other = 0,
+        RejectPDU_rejectReason_cancel_errorPDU_invalid_invokeID = 1,
+        RejectPDU_rejectReason_cancel_errorPDU_invalid_serviceError = 2,
+        RejectPDU_rejectReason_cancel_errorPDU_value_out_of_range = 3,
       } &optional;
       conclude_requestPDU: enum {
-        RejectPDU_other = 0,
-        invalid_argument = 1,
+        RejectPDU_rejectReason_conclude_requestPDU_other = 0,
+        RejectPDU_rejectReason_conclude_requestPDU_invalid_argument = 1,
       } &optional;
       conclude_responsePDU: enum {
-        RejectPDU_other = 0,
-        invalid_result = 1,
+        RejectPDU_rejectReason_conclude_responsePDU_other = 0,
+        RejectPDU_rejectReason_conclude_responsePDU_invalid_result = 1,
       } &optional;
       conclude_errorPDU: enum {
-        RejectPDU_other = 0,
-        invalid_serviceError = 1,
-        value_out_of_range = 2,
+        RejectPDU_rejectReason_conclude_errorPDU_other = 0,
+        RejectPDU_rejectReason_conclude_errorPDU_invalid_serviceError = 1,
+        RejectPDU_rejectReason_conclude_errorPDU_value_out_of_range = 2,
       } &optional;
     };
   };
