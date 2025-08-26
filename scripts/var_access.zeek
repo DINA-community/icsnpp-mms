@@ -18,12 +18,12 @@ event zeek_init() &priority=5
 }
 
 function objectName_to_string(name: ObjectName): string {
-    if(name ?$ vmdSpecific) {
-        return name $ vmdSpecific;
-    } else if (name ?$ aaSpecific) {
-        return name $ aaSpecific + " (aa)";
-    } else if (name ?$ domainSpecific) {
-        return  name $ domainSpecific $ domainId + "::" + name $ domainSpecific $ itemId;
+    if(name ?$ vmd_specific) {
+        return name $ vmd_specific;
+    } else if (name ?$ aa_specific) {
+        return name $ aa_specific + " (aa)";
+    } else if (name ?$ domain_specific) {
+        return  name $ domain_specific $ domainId + "::" + name $ domain_specific $ itemId;
     } else {
         return "";
     }
@@ -47,30 +47,30 @@ function data_to_string(data: Data): string {
         return res;
     } else if(data ?$ boolean) {
         return cat(data $ boolean);
-    } else if(data ?$ bitString) {
-        return cat(data $ bitString);
+    } else if(data ?$ bit_string) {
+        return cat(data $ bit_string);
     } else if(data ?$ integer) {
         return cat(data $ integer);
     } else if(data ?$ unsigned) {
         return cat(data $ unsigned);
-    } else if(data ?$ floatingPoint) {
-        return cat(data $ floatingPoint);
-    } else if(data ?$ octetString) {
-        return cat(data $ octetString);
-    } else if(data ?$ visibleString) {
-        return cat(data $ visibleString);
-    } else if(data ?$ binaryTime) {
-        return cat(data $ binaryTime);
-    } else if(data ?$ mmsString) {
-        return cat(data $ mmsString);
-    } else if(data ?$ utcTime) {
-        return cat(data $ utcTime);
+    } else if(data ?$ floating_point) {
+        return cat(data $ floating_point);
+    } else if(data ?$ octet_string) {
+        return cat(data $ octet_string);
+    } else if(data ?$ visible_string) {
+        return cat(data $ visible_string);
+    } else if(data ?$ binary_time) {
+        return cat(data $ binary_time);
+    } else if(data ?$ mMSString) {
+        return cat(data $ mMSString);
+    } else if(data ?$ utc_time) {
+        return cat(data $ utc_time);
     } else {    
         return "<UNKNOWN>";
     }
 }
 
-function getNameListRequest_to_string(request: GetNameListRequest): string {
+function getNameListRequest_to_string(request: GetNameList_Request): string {
     local scope: string;
     if(request $ objectScope ?$ vmdSpecific) {
         scope="vmdSpecific";
@@ -79,7 +79,7 @@ function getNameListRequest_to_string(request: GetNameListRequest): string {
     } else {
         scope="domain: "+request $ objectScope $ domainSpecific;
     }
-    return "class: "+cat(request $ objectClass $ basicObjectClass)+", scope: "+scope;
+    return "class: "+cat(request $ extendedObjectClass $ objectClass)+", scope: "+scope;
 }
 
 function typeSpecification_to_string(ts: TypeSpecification): string {
@@ -98,17 +98,15 @@ function typeSpecification_to_string(ts: TypeSpecification): string {
         return "{"+res+"}";
     } else if(ts ?$ boolean) {
         return "bool";
-    } else if(ts ?$ bitString) {
+    } else if(ts ?$ bit_string) {
         return "bitString";
     } else if(ts ?$ integer) {
         return "integer";
     } else if(ts ?$ unsigned) {
         return "unsigned";
-    } else if(ts ?$ floatingPoint) {
-        return "floatingPoint";
-    } else if(ts ?$ octetString) {
+    } else if(ts ?$ octet_string) {
         return "octetString";
-    } else if(ts ?$ visibleString) {
+    } else if(ts ?$ visible_string) {
         return "visibleString";
     } else {
         return "<UNKNOWN TYPE>";
@@ -121,7 +119,7 @@ function log_access(operation: string, name: ObjectName, data: Data) {
         $variable=objectName_to_string(name),
         $value=data_to_string(data)
     );
-	Log::write(LOG, rec);
+    Log::write(LOG, rec);
 }
 
 event VariableReadResponse(c: connection, name: ObjectName, data: Data) {
@@ -149,7 +147,7 @@ event VariableListReport(c: connection, name: ObjectName, data: Data) {
 }
 
 
-event NameList(c: connection, request: GetNameListRequest, response: GetNameListResponse) {
+event NameList(c: connection, request: GetNameList_Request, response: GetNameList_Response) {
     local res="";
     for(i in response $ listOfIdentifier) {
         if(i!=0)
@@ -161,21 +159,21 @@ event NameList(c: connection, request: GetNameListRequest, response: GetNameList
         $variable=getNameListRequest_to_string(request),
         $value=res
     );
-	Log::write(LOG, rec);
+    Log::write(LOG, rec);
 }
 
 
-event VariableAccessAttributes(c: connection, request: GetVariableAccessAttributesRequest, response: GetVariableAccessAttributesResponse) {
+event VariableAccessAttributes(c: connection, request: GetVariableAccessAttributes_Request, response: GetVariableAccessAttributes_Response) {
     local rec=record(
         $operation="vaa",
         $variable=objectName_to_string(request $ name),
         $value=typeSpecification_to_string(response $ typeSpecification)
     );
-	Log::write(LOG, rec);
-   
+    Log::write(LOG, rec);
+
 }
 
-event NamedVariableListAttributes(c: connection, request: DefineNamedVariableListRequest, response: GetNamedVariableListAttributesResponse) {
+event NamedVariableListAttributes(c: connection, request: DefineNamedVariableList_Request, response: GetNamedVariableListAttributes_Response) {
     local res="";
     for(i in response $ listOfVariable) {
         if(i!=0)
@@ -187,5 +185,5 @@ event NamedVariableListAttributes(c: connection, request: DefineNamedVariableLis
         $variable=objectName_to_string(request $ variableListName),
         $value=res
     );
-	Log::write(LOG, rec);
+    Log::write(LOG, rec);
 }
