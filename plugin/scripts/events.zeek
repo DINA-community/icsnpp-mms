@@ -14,55 +14,58 @@ redef record connection += {
     mms_defineNamedVariableListRequest: table[int] of DefineNamedVariableList_Request &default=table();
 };
 
-# =====================================================================
-# The following events are called when a corresponding PDU is received.
-# =====================================================================
-global initiateRequestPdu: event(c: connection, pdu: Initiate_RequestPDU);
-global initiateResponsePdu: event(c: connection, pdu: Initiate_ResponsePDU);
-global initiateErrorPdu: event(c: connection, pdu: Initiate_ErrorPDU);
-global readRequest: event(c: connection, invokeID: int, pdu: Read_Request);
-global writeRequest: event(c: connection, invokeID: int, pdu: Write_Request);
-global getNameListRequest: event(c: connection, invokeID: int, pdu: GetNameList_Request);
-global getVariableAccessAttributesRequest: event(c: connection, invokeID: int, pdu: GetVariableAccessAttributes_Request);
-global defineNamedVariableListRequest: event(c: connection, invokeID: int, pdu: DefineNamedVariableList_Request);
-global getNamedVariableListAttributesRequest: event(c: connection, invokeID: int, pdu: GetNamedVariableListAttributes_Request);
-global deleteNamedVariableListRequest: event(c: connection, invokeID: int, pdu: DeleteNamedVariableList_Request);
-global readResponse: event(c: connection, invokeID: int, pdu: Read_Response);
-global writeResponse: event(c: connection, invokeID: int, pdu: Write_Response);
-global getNameListResponse: event(c: connection, invokeID: int, pdu: GetNameList_Response);
-global getVariableAccessAttributesResponse: event(c: connection, invokeID: int, pdu: GetVariableAccessAttributes_Response);
-global defineNamedVariableListResponse: event(c: connection, invokeID: int, pdu: DefineNamedVariableList_Response);
-global getNamedVariableListAttributesResponse: event(c: connection, invokeID: int, pdu: GetNamedVariableListAttributes_Response);
-global deleteNamedVariableListResponse: event(c: connection, invokeID: int, pdu: DeleteNamedVariableList_Response);
-global informationReport_evt: event(c: connection, pdu: InformationReport);
+export {
 
-# =====================================================================
-# The following events are called when a variable (or variable list) is
-# read, written or reported. Several such events can arise from one PDU
-# =====================================================================
-global VariableReadRequest: event(c: connection, name: ObjectName);
-global VariableListReadRequest: event(c: connection, listname: ObjectName);
-global VariableReadResponse: event(c: connection, name: ObjectName, data: Data);
-global VariableReadResponseError: event(c: connection, name: ObjectName, error: DataAccessError);
-global VariableListReadResponse: event(c: connection, listname: ObjectName, data: Data);
-global VariableListReadResponseError: event(c: connection, listname: ObjectName, error: DataAccessError);
+    # =====================================================================
+    # The following events are called when a corresponding PDU is received.
+    # =====================================================================
+    global initiateRequestPdu: event(c: connection, pdu: Initiate_RequestPDU);
+    global initiateResponsePdu: event(c: connection, pdu: Initiate_ResponsePDU);
+    global initiateErrorPdu: event(c: connection, pdu: Initiate_ErrorPDU);
+    global readRequest: event(c: connection, invokeID: int, pdu: Read_Request);
+    global writeRequest: event(c: connection, invokeID: int, pdu: Write_Request);
+    global getNameListRequest: event(c: connection, invokeID: int, pdu: GetNameList_Request);
+    global getVariableAccessAttributesRequest: event(c: connection, invokeID: int, pdu: GetVariableAccessAttributes_Request);
+    global defineNamedVariableListRequest: event(c: connection, invokeID: int, pdu: DefineNamedVariableList_Request);
+    global getNamedVariableListAttributesRequest: event(c: connection, invokeID: int, pdu: GetNamedVariableListAttributes_Request);
+    global deleteNamedVariableListRequest: event(c: connection, invokeID: int, pdu: DeleteNamedVariableList_Request);
+    global readResponse: event(c: connection, invokeID: int, pdu: Read_Response);
+    global writeResponse: event(c: connection, invokeID: int, pdu: Write_Response);
+    global getNameListResponse: event(c: connection, invokeID: int, pdu: GetNameList_Response);
+    global getVariableAccessAttributesResponse: event(c: connection, invokeID: int, pdu: GetVariableAccessAttributes_Response);
+    global defineNamedVariableListResponse: event(c: connection, invokeID: int, pdu: DefineNamedVariableList_Response);
+    global getNamedVariableListAttributesResponse: event(c: connection, invokeID: int, pdu: GetNamedVariableListAttributes_Response);
+    global deleteNamedVariableListResponse: event(c: connection, invokeID: int, pdu: DeleteNamedVariableList_Response);
+    global informationReport_evt: event(c: connection, pdu: InformationReport);
 
-global VariableWriteRequest: event(c: connection, name: ObjectName, data: Data);
-global VariableListWriteRequest: event(c: connection, listname: ObjectName, data: Data);
-global VariableWriteResponse: event(c: connection, name: ObjectName, data: Data);
-global VariableWriteResponseError: event(c: connection, name: ObjectName, data: Data, error: DataAccessError);
-global VariableListWriteResponse: event(c: connection, listname: ObjectName, data: Data);
-global VariableListWriteResponseError: event(c: connection, listname: ObjectName, data: Data, error: DataAccessError);
+    # =====================================================================
+    # The following events are called when a variable (or variable list) is
+    # read, written or reported. Several such events can arise from one PDU
+    # =====================================================================
+    global VariableReadRequest: event(c: connection, name: ObjectName);
+    global VariableListReadRequest: event(c: connection, listname: ObjectName);
+    global VariableReadResponse: event(c: connection, name: ObjectName, data: Data);
+    global VariableReadResponseError: event(c: connection, name: ObjectName, error: DataAccessError);
+    global VariableListReadResponse: event(c: connection, listname: ObjectName, data: Data);
+    global VariableListReadResponseError: event(c: connection, listname: ObjectName, error: DataAccessError);
 
-global VariableReport: event(c: connection, name: ObjectName, data: Data);
-global VariableReportError: event(c: connection, name: ObjectName, error: DataAccessError);
-global VariableListReport: event(c: connection, listname: ObjectName, data: Data);
-global VariableListReportError: event(c: connection, listname: ObjectName, error: DataAccessError);
+    global VariableWriteRequest: event(c: connection, name: ObjectName, data: Data);
+    global VariableListWriteRequest: event(c: connection, listname: ObjectName, data: Data);
+    global VariableWriteResponse: event(c: connection, name: ObjectName, data: Data);
+    global VariableWriteResponseError: event(c: connection, name: ObjectName, data: Data, error: DataAccessError);
+    global VariableListWriteResponse: event(c: connection, listname: ObjectName, data: Data);
+    global VariableListWriteResponseError: event(c: connection, listname: ObjectName, data: Data, error: DataAccessError);
 
-global NameList: event(c: connection, request: GetNameList_Request, response: GetNameList_Response);
-global VariableAccessAttributes: event(c: connection, request: GetVariableAccessAttributes_Request, response: GetVariableAccessAttributes_Response);
-global NamedVariableListAttributes: event(c: connection, request: DefineNamedVariableList_Request, response: GetNamedVariableListAttributes_Response);
+    global VariableReport: event(c: connection, name: ObjectName, data: Data);
+    global VariableReportError: event(c: connection, name: ObjectName, error: DataAccessError);
+    global VariableListReport: event(c: connection, listname: ObjectName, data: Data);
+    global VariableListReportError: event(c: connection, listname: ObjectName, error: DataAccessError);
 
+    global NameList: event(c: connection, request: GetNameList_Request, response: GetNameList_Response);
+    global VariableAccessAttributes: event(c: connection, request: GetVariableAccessAttributes_Request, response: GetVariableAccessAttributes_Response);
+    global NamedVariableListAttributes: event(c: connection, request: DefineNamedVariableList_Request, response: GetNamedVariableListAttributes_Response);
+
+}
 
 # =====================================================================
 # Mapping of a general MMSpdu to the respective PDU type it contains
