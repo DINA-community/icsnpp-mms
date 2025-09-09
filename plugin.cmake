@@ -1,5 +1,5 @@
 
-add_compile_options(-Wextra -Wall -Wno-implicit-fallthrough -Werror)
+add_compile_options(-Wextra -Wall -Wno-implicit-fallthrough -Wno-unused-variable -Werror)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/plugin/src/asn1c")
 
