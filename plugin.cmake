@@ -12,4 +12,4 @@ endif()
 
 # The following executables are for testing purposes only
 add_executable(test-parser $<TARGET_OBJECTS:asn1c> testing/Files/asn1c-test.c)
-target_compile_definitions(test-parser PRIVATE PDU=MmsPdu)
+target_compile_definitions(test-parser PRIVATE PDU=MMSpdu)
