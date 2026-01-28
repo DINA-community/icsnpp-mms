@@ -84,7 +84,7 @@ event NameListError (c: connection, request: GetNameList_Request, response: Conf
     local class: string;
     local domain: string;
 
-    if(!log_var_attributes) return;
+    if(!log_name_list) return;
 
     class = remove_ns(cat(request $ extendedObjectClass $ objectClass));
 
