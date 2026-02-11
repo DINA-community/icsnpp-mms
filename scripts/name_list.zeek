@@ -29,10 +29,10 @@ event zeek_init() &priority=5
 }
 
 event NameList(c: connection, request: GetNameList_Request, response: GetNameList_Response) {
-    local scope: string;
-    local value: string;
-    local class: string;
-    local domain: string;
+    local scope: string = "";
+    local value: string = "";
+    local class: string = "";
+    local domain: string = "";
 
     if(!log_name_list) return;
 
@@ -47,11 +47,13 @@ event NameList(c: connection, request: GetNameList_Request, response: GetNameLis
         domain=request $ objectScope $ domainSpecific;
     }
 
+    value = "[";
     for(i in response $ listOfIdentifier) {
         if(i!=0)
             value+=",";
-        value+=response $ listOfIdentifier[i];
+        value+=to_json(response $ listOfIdentifier[i]);
     }
+    value += "]";
 
     local rec: NameListRecord = record(
         $ts=network_time(),
@@ -72,7 +74,7 @@ event NameList(c: connection, request: GetNameList_Request, response: GetNameLis
         rec$domain = domain;
     }
 
-    if(|value| > 0) {
+    if(|value| > 2) {
         rec$value = value;
     }
 

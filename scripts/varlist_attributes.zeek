@@ -34,13 +34,15 @@ event NamedVariableListAttributes(c: connection, request: GetNamedVariableListAt
     if(!log_varlist_attributes) return;
 
     local list = objectName_to_string(request);
-    local attributes="";
+    local attributes = "";
 
+    attributes += "["
     for(i in response $ listOfVariable) {
         if(i!=0)
             attributes+=",";
-        attributes+=objectName_to_string(response $ listOfVariable[i] $ variableSpecification $ name);
+        attributes+=to_json(objectName_to_string(response $ listOfVariable[i] $ variableSpecification $ name));
     }
+    attributes += "]"
 
     local rec=record(
         $ts=network_time(),

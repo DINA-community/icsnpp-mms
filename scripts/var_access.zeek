@@ -12,7 +12,6 @@ export {
         id:        conn_id  &log;
         operation: string   &log;
         variable:  string   &log;
-        datatype:  string   &log &optional;
         value:     string   &log &optional;
         success:   bool     &log;
         diag:      string   &log &optional;
@@ -25,7 +24,6 @@ export {
         operation: string   &log;
         listname:  string   &log;
         listindex: count    &log;
-        datatype:  string   &log &optional;
         value:     string   &log &optional;
         success:   bool     &log;
         diag:      string   &log &optional;
@@ -53,7 +51,6 @@ event VariableReadResponse(c: connection, name: ObjectName, data: Data) {
         $id=c$id,
         $operation="read",
         $variable=objectName_to_string(name),
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=T
     ];
@@ -71,7 +68,6 @@ event VariableWriteResponse(c: connection, name: ObjectName, data: Data) {
         $id=c$id,
         $operation="write",
         $variable=objectName_to_string(name),
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=T
     ];
@@ -106,7 +102,6 @@ event VariableWriteResponseError(c: connection, name: ObjectName, data: Data, er
         $id=c$id,
         $operation="write",
         $variable=objectName_to_string(name),
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=F,
         $diag=remove_ns(cat(error))
@@ -127,7 +122,6 @@ event VariableListReadResponse(c: connection, listname: ObjectName, listindex: c
         $operation="read",
         $listname=objectName_to_string(listname),
         $listindex=listindex,
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=T
     ];
@@ -164,7 +158,6 @@ event VariableListWriteResponse(c: connection, listname: ObjectName, listindex: 
         $operation="write",
         $listname=objectName_to_string(listname),
         $listindex=listindex,
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=T
     ];
@@ -183,7 +176,6 @@ event VariableListWriteResponseError(c: connection, listname: ObjectName, listin
         $operation="write",
         $listname=objectName_to_string(listname),
         $listindex=listindex,
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=F,
         $diag=remove_ns(cat(error))
@@ -203,7 +195,6 @@ event VariableReport(c: connection, name: ObjectName, data: Data) {
         $id=c$id,
         $operation="report",
         $variable=objectName_to_string(name),
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=T
     ];
@@ -238,7 +229,6 @@ event VariableListReport(c: connection, listname: ObjectName, listindex: count, 
         $operation="report",
         $listname=objectName_to_string(listname),
         $listindex=listindex,
-        $datatype=data_to_type(data),
         $value=data_to_string(data),
         $success=T
     ];

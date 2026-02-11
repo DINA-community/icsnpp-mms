@@ -27,74 +27,63 @@ function nice_servicesSupported(vec: ServiceSupportOptions): string {
 }
 
 function data_to_string(data: Data): string {
-    local res: string="";
-    if(data ?$ array) {
-        for(i in data $ array) {
+    local val: string="";
+    local val_t: string="";
+
+    if(data?$array) {
+        val+="[";
+        for(i in data$array) {
             if(i!=0)
-                res+=",";
-            res+=data_to_string(data $ array[i]);
+                val+=",";
+            val+=data_to_string(data $ array[i]);
         }
-        return res;
-    } else if (data ?$ structure) {
+        val+="]";
+        val_t = "array";
+    } else if (data?$structure) {
+        val+="[";
         for(i in data $ structure) {
             if(i!=0)
-                res+=",";
-            res+=data_to_string(data $ structure[i]);
+                val+=",";
+            val+=data_to_string(data$structure[i]);
         }
-        return res;
+        val+="]";
+        val_t = "structure";
     } else if(data?$boolean) {
-        return fmt("%s", data$boolean);
+        val = to_json(fmt("%s", data$boolean));
+        val_t = "boolean";
     } else if(data?$bit_string) {
-        return "0x" + string_to_ascii_hex(data$bit_string);
+        val = to_json("0x" + string_to_ascii_hex(data$bit_string));
+        val_t = "bit_string";
     } else if(data?$integer) {
-        return fmt("%d", data$integer);
+        val = to_json(fmt("%d", data$integer));
+        val_t = "integer";
     } else if(data?$unsigned) {
-        return fmt("%d", data$unsigned);
+        val = to_json(fmt("%d", data$unsigned));
+        val_t = "unsigned";
     } else if(data?$floating_point) {
-        return "0x" + string_to_ascii_hex(data$floating_point);
+        val = to_json("0x" + string_to_ascii_hex(data$floating_point));
+        val_t = "floating_point";
     } else if(data?$octet_string) {
-        return "0x" + string_to_ascii_hex(data$octet_string);
+        val = to_json("0x" + string_to_ascii_hex(data$octet_string));
+        val_t = "octet_string";
     } else if(data?$visible_string) {
-        return data$visible_string;
+        val = to_json(data$visible_string);
+        val_t = "visible_string";
     } else if(data?$binary_time) {
-        return "0x" + string_to_ascii_hex(data$binary_time);
+        val = to_json("0x" + string_to_ascii_hex(data$binary_time));
+        val_t = "binary_time";
     } else if(data?$mMSString) {
-        return data$mMSString;
+        val = to_json(data$mMSString);
+        val_t = "mms_string";
     } else if(data?$utc_time) {
-        return "0x" + string_to_ascii_hex(data$utc_time);
+        val = to_json("0x" + string_to_ascii_hex(data$utc_time));
+        val_t = "utc_time";
     } else {
-        return "<unknown>";
+        val = to_json("<unknown>");
+        val_t = "bit_string";
     }
-}
 
-function data_to_type(data: Data): string {
-    if(data ?$ array) {
-       return "array";
-    } else if (data ?$ structure) {
-       return "structure";
-    } else if(data ?$ boolean) {
-        return "boolean";
-    } else if(data ?$ bit_string) {
-        return "bit_string";
-    } else if(data ?$ integer) {
-        return "integer";
-    } else if(data ?$ unsigned) {
-        return "unsigned";
-    } else if(data ?$ floating_point) {
-        return "float";
-    } else if(data ?$ octet_string) {
-        return "octet";
-    } else if(data ?$ visible_string) {
-        return "string";
-    } else if(data ?$ binary_time) {
-        return "btime";
-    } else if(data ?$ mMSString) {
-        return "string";
-    } else if(data ?$ utc_time) {
-        return "time";
-    } else {
-        return "<unknown>";
-    }
+    return "{\"type\": \""+val_t+"\", \"value\": "+val+"}";
 }
 
 function objectName_to_string(name: ObjectName): string {
@@ -109,36 +98,40 @@ function objectName_to_string(name: ObjectName): string {
     }
 }
 
+function typeSpecification_to_string(ts: TypeSpecification, fieldName: string &default=""): string {
 
-function typeSpecification_to_string(ts: TypeSpecification): string {
-    local res="";
+    local val_f: string="";
+    local val_t: string="";
+    local val_n: string=fieldName;
+
     if(ts ?$ array) {
-        return "array";
+        val_t = "array";
+        val_f += typeSpecification_to_string(ts$array$elementType);
     } else if(ts ?$ structure) {
-        for(i in ts $ structure $ components) {
-            local comp = ts $ structure $ components[i];
+        val_t = "structure";
+        for(i in ts$structure$components) {
+            local comp = ts$structure$components[i];
             if(i!=0)
-                res+=",";
-            res += comp $ componentName;
-            res += ": ";
-            res += typeSpecification_to_string(comp $ componentType);
+                val_f+=",";
+            val_f += typeSpecification_to_string(comp$componentType, comp$componentName);
         }
-        return "{"+res+"}";
     } else if(ts ?$ boolean) {
-        return "bool";
+        val_t = "bool";
     } else if(ts ?$ bit_string) {
-        return "bitString";
+        val_t = "bitString";
     } else if(ts ?$ integer) {
-        return "integer";
+        val_t = "integer";
     } else if(ts ?$ unsigned) {
-        return "unsigned";
+        val_t = "unsigned";
     } else if(ts ?$ octet_string) {
-        return "octetString";
+        val_t = "octetString";
     } else if(ts ?$ visible_string) {
-        return "visibleString";
+        val_t = "visibleString";
     } else {
-        return "<unknown>";
+        val_t = "<unknown>";
     }
+
+    return "{\"name\": \""+val_n+"\", \"type\": \""+val_t+"\", \"fields\": ["+val_f+"]}";
 }
 
 
