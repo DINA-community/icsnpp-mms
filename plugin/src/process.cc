@@ -54,11 +54,14 @@ template <typename T> inline IntrusivePtr<Val> convert(const T *s) {
 }
 
 bool is_bit_set(const BIT_STRING_t *s, unsigned int idx) {
-  int byte_no = idx / 8;
-  if (byte_no >= s->size)
-    return false;
-  auto byte = s->buf[byte_no];
-  return byte & (1 << (idx % 8));
+    if (!s || idx >= (unsigned int)(s->size * 8 - s->bits_unused) || s->size <= 0)
+        return false;
+
+    unsigned byte_no = idx / 8;
+    unsigned bit_no = idx % 8;
+    uint8_t byte = s->buf[byte_no];
+    // Big-endian: Most significant bit is at position 7, so shift by (7 - bit_no)
+    return (byte & (1 << (7 - bit_no))) != 0;
 }
 
 /*

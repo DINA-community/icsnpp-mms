@@ -1,16 +1,16 @@
 #THIS CODE IS GENERATED. DON'T CHANGE MANUALLY!
 module mms;
 export {
-  
+
   # ======== PRIMITIVE TYPES =======
   type Unsigned32: int;
-  
+
   type Identifier: string;
-  
+
   type Unsigned8: int;
-  
+
   type Status_Request: bool;
-  
+
   type ObjectClass: enum {
     nammedVariable = 0,
     ObjectClass_scatteredAccess = 1,
@@ -25,26 +25,26 @@ export {
     ObjectClass_programInvocation = 10,
     ObjectClass_operatorStation = 11,
   };
-  
+
   type Identify_Request: bool;
-  
+
   type Integer32: int;
-  
+
   type FloatingPoint: string;
-  
+
   type TimeOfDay: string;
-  
+
   type MMSString: string;
-  
+
   type UtcTime: string;
-  
+
   type Unsigned16: int;
-  
+
   type ObtainFile_Error: enum {
     ObtainFile_Error_source_file = 0,
     ObtainFile_Error_destination_file = 1,
   };
-  
+
   type ProgramInvocationState: enum {
     ProgramInvocationState_non_existent = 0,
     unrunable = 1,
@@ -56,34 +56,34 @@ export {
     resuming = 7,
     resetting = 8,
   };
-  
+
   type FileRename_Error: enum {
     FileRename_Error_source_file = 0,
     FileRename_Error_destination_file = 1,
   };
-  
+
   type EC_Class: enum {
     network_triggered = 0,
     monitored = 1,
   };
-  
+
   type AlarmAckRule: enum {
     AlarmAckRule_none = 0,
     AlarmAckRule_simple = 1,
     ack_active = 2,
     ack_all = 3,
   };
-  
+
   type EC_State: enum {
     EC_State_disabled = 0,
     EC_State_idle = 1,
     EC_State_active = 2,
   };
-  
+
   type JOU_Additional_Detail: bool;
-  
+
   type Rename_Response: bool;
-  
+
   type DataAccessError: enum {
     DataAccessError_object_invalidated = 0,
     hardware_fault = 1,
@@ -98,41 +98,41 @@ export {
     DataAccessError_object_non_existent = 10,
     object_value_invalid = 11,
   };
-  
+
   type DefineNamedVariable_Response: bool;
-  
+
   type DefineScatteredAccess_Response: bool;
-  
+
   type DefineNamedVariableList_Response: bool;
-  
+
   type DefineNamedType_Response: bool;
-  
+
   type Input_Response: string;
-  
+
   type Output_Response: bool;
-  
+
   type RelinquishControl_Response: bool;
-  
+
   type DefineSemaphore_Response: bool;
-  
+
   type DeleteSemaphore_Response: bool;
-  
+
   type InitiateDownloadSequence_Response: bool;
-  
+
   type TerminateDownloadSequence_Response: bool;
-  
+
   type TerminateUploadSequence_Response: bool;
-  
+
   type RequestDomainDownload_Response: bool;
-  
+
   type RequestDomainUpload_Response: bool;
-  
+
   type LoadDomainContent_Response: bool;
-  
+
   type StoreDomainContent_Response: bool;
-  
+
   type DeleteDomain_Response: bool;
-  
+
   type DomainState: enum {
     DomainState_non_existent = 0,
     loading = 1,
@@ -150,35 +150,35 @@ export {
     d8 = 14,
     d9 = 15,
   };
-  
+
   type Integer8: int;
-  
+
   type CreateProgramInvocation_Response: bool;
-  
+
   type DeleteProgramInvocation_Response: bool;
-  
+
   type Start_Response: bool;
-  
+
   type Stop_Response: bool;
-  
+
   type Resume_Response: bool;
-  
+
   type Reset_Response: bool;
-  
+
   type Kill_Response: bool;
-  
+
   type ObtainFile_Response: bool;
-  
+
   type DefineEventCondition_Response: bool;
-  
+
   type AlterEventConditionMonitoring_Response: bool;
-  
+
   type TriggerEvent_Response: bool;
-  
+
   type DefineEventAction_Response: bool;
-  
+
   type DefineEventEnrollment_Response: bool;
-  
+
   type EE_State: enum {
     EE_State_disabled = 0,
     EE_State_idle = 1,
@@ -189,38 +189,38 @@ export {
     idleAcked = 6,
     activeAcked = 7,
   };
-  
+
   type EE_Duration: enum {
     current = 0,
     permanent = 1,
   };
-  
+
   type EE_Class: enum {
     EE_Class_modifier = 0,
     notification = 1,
   };
-  
+
   type AcknowledgeEventNotification_Response: bool;
-  
+
   type WriteJournal_Response: bool;
-  
+
   type CreateJournal_Response: bool;
-  
+
   type DeleteJournal_Response: bool;
-  
+
   type FileClose_Response: bool;
-  
+
   type FileRename_Response: bool;
-  
+
   type FileDelete_Response: bool;
-  
+
   type Integer16: int;
-  
+
   type Conclude_RequestPDU: bool;
-  
+
   type Conclude_ResponsePDU: bool;
-  
-  
+
+
   # ======== FORWARD DECLARATIONS =======
   type TypeSpecification: record {};
   type VariableSpecification: record {};
@@ -228,7 +228,7 @@ export {
   type AlternateAccessSelection: record {};
   type ScatteredAccessDescription: record {};
   type Data: record {};
-  
+
   # ======== COMPLEX TYPES =======
   type ReportedOptFlds: vector of enum {
     reserved,
@@ -242,7 +242,7 @@ export {
     conf_revision,
     segmentation,
   };
-  
+
   type ObjectName: record {
     vmd_specific: Identifier &optional;
     domain_specific: record {
@@ -251,7 +251,7 @@ export {
     } &optional;
     aa_specific: Identifier &optional;
   };
-  
+
   type Transitions: vector of enum {
     idle_to_disabled,
     active_to_disabled,
@@ -261,16 +261,16 @@ export {
     idle_to_active,
     any_to_deleted,
   };
-  
+
   type AttachToEventCondition: record {
     eventEnrollmentName: ObjectName;
     eventConditionName: ObjectName;
     causingTransitions: Transitions;
     acceptableDelay: Unsigned32 &optional;
   };
-  
+
   type Priority: Unsigned8;
-  
+
   type AttachToSemaphore: record {
     semaphoreName: ObjectName;
     namedToken: Identifier &optional;
@@ -280,18 +280,18 @@ export {
     abortOnTimeOut: bool &optional;
     relinquishIfConnectionLost: bool;
   };
-  
+
   type Modifier: record {
     attach_To_Event_Condition: AttachToEventCondition &optional;
     attach_To_Semaphore: AttachToSemaphore &optional;
   };
-  
+
   type ObjectScope: record {
     vmdSpecific: bool &optional;
     domainSpecific: Identifier &optional;
     aaSpecific: bool &optional;
   };
-  
+
   type GetNameList_Request: record {
     extendedObjectClass: record {
       objectClass: ObjectClass &optional;
@@ -299,7 +299,7 @@ export {
     objectScope: ObjectScope;
     continueAfter: Identifier &optional;
   };
-  
+
   type Rename_Request: record {
     extendedObjectClass: record {
       objectClass: enum {
@@ -320,13 +320,13 @@ export {
     currentName: ObjectName;
     newIdentifier: Identifier;
   };
-  
+
   type Address: record {
     numericAddress: Unsigned32 &optional;
     symbolicAddress: string &optional;
     unconstrainedAddress: string &optional;
   };
-  
+
   type VariableAccessSpecification: record {
     listOfVariable: vector of record {
       variableSpecification: VariableSpecification;
@@ -334,35 +334,35 @@ export {
     } &optional;
     variableListName: ObjectName &optional;
   };
-  
+
   type Read_Request: record {
     specificationWithResult: bool;
     variableAccessSpecificatn: VariableAccessSpecification;
   };
-  
+
   type Write_Request: record {
     variableAccessSpecificatn: VariableAccessSpecification;
     listOfData: vector of Data;
   };
-  
+
   type GetVariableAccessAttributes_Request: record {
     name: ObjectName &optional;
     address: Address &optional;
   };
-  
+
   type DefineNamedVariable_Request: record {
     variableName: ObjectName;
     address: Address;
     typeSpecification: TypeSpecification &optional;
   };
-  
+
   type DefineScatteredAccess_Request: record {
     scatteredAccessName: ObjectName;
     scatteredAccessDescription: ScatteredAccessDescription;
   };
-  
+
   type GetScatteredAccessAttributes_Request: ObjectName;
-  
+
   type DeleteVariableAccess_Request: record {
     scopeOfDelete: enum {
       DeleteVariableAccess_Request_specific = 0,
@@ -373,7 +373,7 @@ export {
     listOfName: vector of ObjectName &optional;
     domainName: Identifier &optional;
   };
-  
+
   type DefineNamedVariableList_Request: record {
     variableListName: ObjectName;
     listOfVariable: vector of record {
@@ -381,9 +381,9 @@ export {
       alternateAccess: AlternateAccess &optional;
     };
   };
-  
+
   type GetNamedVariableListAttributes_Request: ObjectName;
-  
+
   type DeleteNamedVariableList_Request: record {
     scopeOfDelete: enum {
       DeleteNamedVariableList_Request_specific = 0,
@@ -394,14 +394,14 @@ export {
     listOfVariableListName: vector of ObjectName &optional;
     domainName: Identifier &optional;
   };
-  
+
   type DefineNamedType_Request: record {
     typeName: ObjectName;
     typeSpecification: TypeSpecification;
   };
-  
+
   type GetNamedTypeAttributes_Request: ObjectName;
-  
+
   type DeleteNamedType_Request: record {
     scopeOfDelete: enum {
       DeleteNamedType_Request_specific = 0,
@@ -412,19 +412,19 @@ export {
     listOfTypeName: vector of ObjectName &optional;
     domainName: Identifier &optional;
   };
-  
+
   type Input_Request: record {
     operatorStationName: Identifier;
     echo: bool;
     listOfPromptData: vector of string &optional;
     inputTimeOut: Unsigned32 &optional;
   };
-  
+
   type Output_Request: record {
     operatorStationName: Identifier;
     listOfOutputData: vector of string;
   };
-  
+
   type TakeControl_Request: record {
     semaphoreName: ObjectName;
     namedToken: Identifier &optional;
@@ -434,26 +434,26 @@ export {
     abortOnTimeOut: bool &optional;
     relinquishIfConnectionLost: bool;
   };
-  
+
   type RelinquishControl_Request: record {
     semaphoreName: ObjectName;
     namedToken: Identifier &optional;
   };
-  
+
   type DefineSemaphore_Request: record {
     semaphoreName: ObjectName;
     numbersOfTokens: Unsigned16;
   };
-  
+
   type DeleteSemaphore_Request: ObjectName;
-  
+
   type ReportSemaphoreStatus_Request: ObjectName;
-  
+
   type ReportPoolSemaphoreStatus_Request: record {
     semaphoreName: ObjectName;
     nameToStartAfter: Identifier &optional;
   };
-  
+
   type ReportSemaphoreEntryStatus_Request: record {
     semaphoreName: ObjectName;
     state: enum {
@@ -463,66 +463,66 @@ export {
     };
     entryIdToStartAfter: string &optional;
   };
-  
+
   type InitiateDownloadSequence_Request: record {
     domainName: Identifier;
     listOfCapabilities: vector of string;
     sharable: bool;
   };
-  
+
   type DownloadSegment_Request: Identifier;
-  
+
   type Start_Error: ProgramInvocationState;
-  
+
   type Stop_Error: ProgramInvocationState;
-  
+
   type Resume_Error: ProgramInvocationState;
-  
+
   type Reset_Error: ProgramInvocationState;
-  
+
   type DeleteVariableAccess_Error: Unsigned32;
-  
+
   type DeleteNamedVariableList_Error: Unsigned32;
-  
+
   type DeleteNamedType_Error: Unsigned32;
-  
+
   type DefineEventEnrollment_Error: ObjectName;
-  
+
   type DefineEventConditionList_Error: ObjectName;
-  
+
   type AddEventConditionListReference_Error: ObjectName;
-  
+
   type RemoveEventConditionListReference_Error: record {
     eventCondition: ObjectName &optional;
     eventConditionList: ObjectName &optional;
   };
-  
+
   type InitiateUnitControl_Error: record {
     _domain: Identifier &optional;
     programInvocation: Identifier &optional;
   };
-  
+
   type StartUnitControl_Error: record {
     programInvocationName: Identifier;
     programInvocationState: ProgramInvocationState;
   };
-  
+
   type StopUnitControl_Error: record {
     programInvocationName: Identifier;
     programInvocationState: ProgramInvocationState;
   };
-  
+
   type DeleteUnitControl_Error: record {
     _domain: Identifier &optional;
     programInvocation: Identifier &optional;
   };
-  
+
   type LoadUnitControlFromFile_Error: record {
     none: bool &optional;
     _domain: Identifier &optional;
     programInvocation: Identifier &optional;
   };
-  
+
   type AdditionalService_Error: record {
     defineEcl: DefineEventConditionList_Error &optional;
     addECLReference: AddEventConditionListReference_Error &optional;
@@ -533,9 +533,9 @@ export {
     deleteUC: DeleteUnitControl_Error &optional;
     loadUCFromFile: LoadUnitControlFromFile_Error &optional;
   };
-  
+
   type ChangeAccessControl_Error: Unsigned32;
-  
+
   type ServiceError: record {
     errorClass: record {
       vmd_state: enum {
@@ -644,57 +644,57 @@ export {
       changeAccessControl: ChangeAccessControl_Error &optional;
     } &optional;
   };
-  
+
   type TerminateDownloadSequence_Request: record {
     domainName: Identifier;
     discard: ServiceError &optional;
   };
-  
+
   type InitiateUploadSequence_Request: Identifier;
-  
+
   type UploadSegment_Request: Integer32;
-  
+
   type TerminateUploadSequence_Request: Integer32;
-  
+
   type FileName: vector of string;
-  
+
   type RequestDomainDownload_Request: record {
     domainName: Identifier;
     listOfCapabilities: vector of string &optional;
     sharable: bool;
     fileName: FileName;
   };
-  
+
   type RequestDomainUpload_Request: record {
     domainName: Identifier;
     fileName: FileName;
   };
-  
+
   type LoadDomainContent_Request: record {
     domainName: Identifier;
     listOfCapabilities: vector of string &optional;
     sharable: bool;
     fileName: FileName;
   };
-  
+
   type StoreDomainContent_Request: record {
     domainName: Identifier;
     filenName: FileName;
   };
-  
+
   type DeleteDomain_Request: Identifier;
-  
+
   type GetDomainAttributes_Request: Identifier;
-  
+
   type CreateProgramInvocation_Request: record {
     programInvocationName: Identifier;
     listOfDomainName: vector of Identifier;
     reusable: bool;
     monitorType: bool &optional;
   };
-  
+
   type DeleteProgramInvocation_Request: Identifier;
-  
+
   type EXTERNALt: record {
     direct_reference: string &optional;
     indirect_reference: int &optional;
@@ -705,7 +705,7 @@ export {
       arbitrary: string &optional;
     };
   };
-  
+
   type Start_Request: record {
     programInvocationName: Identifier;
     executionArgument: record {
@@ -713,11 +713,11 @@ export {
       encodedString: EXTERNALt &optional;
     } &optional;
   };
-  
+
   type Stop_Request: record {
     programInvocationName: Identifier;
   };
-  
+
   type Resume_Request: record {
     programInvocationName: Identifier;
     executionArgument: record {
@@ -725,22 +725,22 @@ export {
       encodedString: EXTERNALt &optional;
     } &optional;
   };
-  
+
   type Reset_Request: record {
     programInvocationName: Identifier;
   };
-  
+
   type Kill_Request: record {
     programInvocationName: Identifier;
   };
-  
+
   type GetProgramInvocationAttributes_Request: Identifier;
-  
+
   type ObtainFile_Request: record {
     sourceFile: FileName;
     destinationFile: FileName;
   };
-  
+
   type DefineEventCondition_Request: record {
     eventConditionName: ObjectName;
     class: EC_Class;
@@ -750,18 +750,18 @@ export {
     monitoredVariable: VariableSpecification &optional;
     evaluationInterval: Unsigned32 &optional;
   };
-  
+
   type DeleteEventCondition_Request: record {
     specific: vector of ObjectName &optional;
     aa_specific: bool &optional;
     _domain: Identifier &optional;
     vmd: bool &optional;
   };
-  
+
   type GetEventConditionAttributes_Request: ObjectName;
-  
+
   type ReportEventConditionStatus_Request: ObjectName;
-  
+
   type AlterEventConditionMonitoring_Request: record {
     eventConditionName: ObjectName;
     enabled: bool &optional;
@@ -769,28 +769,28 @@ export {
     alarmSummaryReports: bool &optional;
     evaluationInterval: Unsigned32 &optional;
   };
-  
+
   type TriggerEvent_Request: record {
     eventConditionName: ObjectName;
     priority: Priority &optional;
   };
-  
+
   type DefineEventAction_Request: record {
     eventActionName: ObjectName;
     listOfModifier: vector of Modifier &optional;
   };
-  
+
   type DeleteEventAction_Request: record {
     specific: vector of ObjectName &optional;
     aa_specific: bool &optional;
     _domain: Identifier &optional;
     vmd: bool &optional;
   };
-  
+
   type GetEventActionAttributes_Request: ObjectName;
-  
+
   type ReportEventActionStatus_Request: ObjectName;
-  
+
   type DefineEventEnrollment_Request: record {
     eventEnrollmentName: ObjectName;
     eventConditionName: ObjectName;
@@ -798,21 +798,21 @@ export {
     alarmAcknowledgementRule: AlarmAckRule;
     eventActionName: ObjectName &optional;
   };
-  
+
   type DeleteEventEnrollment_Request: record {
     specific: vector of ObjectName &optional;
     ec: ObjectName &optional;
     ea: ObjectName &optional;
   };
-  
+
   type AlterEventEnrollment_Request: record {
     eventEnrollmentName: ObjectName;
     eventConditionTransitions: Transitions &optional;
     alarmAcknowledgmentRule: AlarmAckRule &optional;
   };
-  
+
   type ReportEventEnrollmentStatus_Request: ObjectName;
-  
+
   type GetEventEnrollmentAttributes_Request: record {
     scopeOfRequest: enum {
       GetEventEnrollmentAttributes_Request_specific = 0,
@@ -825,18 +825,18 @@ export {
     eventActionName: ObjectName &optional;
     continueAfter: ObjectName &optional;
   };
-  
+
   type EventTime: record {
     timeOfDayT: TimeOfDay &optional;
     timeSequenceIdentifier: Unsigned32 &optional;
   };
-  
+
   type AcknowledgeEventNotification_Request: record {
     eventEnrollmentName: ObjectName;
     acknowledgedState: EC_State;
     timeOfAcknowledgedTransition: EventTime;
   };
-  
+
   type GetAlarmSummary_Request: record {
     enrollmentsOnly: bool;
     activeAlarmsOnly: bool;
@@ -851,7 +851,7 @@ export {
     } &optional;
     continueAfter: ObjectName &optional;
   };
-  
+
   type GetAlarmEnrollmentSummary_Request: record {
     enrollmentsOnly: bool;
     activeAlarmsOnly: bool;
@@ -866,7 +866,7 @@ export {
     } &optional;
     continueAfter: ObjectName &optional;
   };
-  
+
   type ReadJournal_Request: record {
     journalName: ObjectName;
     rangeStartSpecification: record {
@@ -883,7 +883,7 @@ export {
       entrySpecification: string;
     };
   };
-  
+
   type EntryContent: record {
     occurenceTime: TimeOfDay;
     additionalDetail: JOU_Additional_Detail &optional;
@@ -901,12 +901,12 @@ export {
       annotation: string &optional;
     };
   };
-  
+
   type WriteJournal_Request: record {
     journalName: ObjectName;
     listOfJournalEntry: vector of EntryContent;
   };
-  
+
   type InitializeJournal_Request: record {
     journalName: ObjectName;
     limitSpecification: record {
@@ -914,42 +914,42 @@ export {
       limitingEntry: string &optional;
     } &optional;
   };
-  
+
   type ReportJournalStatus_Request: ObjectName;
-  
+
   type CreateJournal_Request: record {
     journalName: ObjectName;
   };
-  
+
   type DeleteJournal_Request: record {
     journalName: ObjectName;
   };
-  
+
   type GetCapabilityList_Request: record {
     continueAfter: string &optional;
   };
-  
+
   type FileOpen_Request: record {
     fileName: FileName;
     initialPosition: Unsigned32;
   };
-  
+
   type FileRead_Request: Integer32;
-  
+
   type FileClose_Request: Integer32;
-  
+
   type FileRename_Request: record {
     currentFileName: FileName;
     newFileName: FileName;
   };
-  
+
   type FileDelete_Request: FileName;
-  
+
   type FileDirectory_Request: record {
     fileSpecification: FileName &optional;
     continueAfter: FileName &optional;
   };
-  
+
   type ConfirmedServiceRequest: record {
     status: Status_Request &optional;
     getNameList: GetNameList_Request &optional;
@@ -1030,18 +1030,18 @@ export {
     fileDelete: FileDelete_Request &optional;
     fileDirectory: FileDirectory_Request &optional;
   };
-  
+
   type CS_Request_Detail: record {
     foo: int &optional;
   };
-  
+
   type Confirmed_RequestPDU: record {
     invokeID: Unsigned32;
     listOfModifier: vector of Modifier &optional;
     confirmedServiceRequest: ConfirmedServiceRequest;
     cs_request_detail: CS_Request_Detail &optional;
   };
-  
+
   type Status_Response: record {
     vmdLogicalStatus: enum {
       state_changes_allowed = 0,
@@ -1057,50 +1057,50 @@ export {
     };
     localDetail: string &optional;
   };
-  
+
   type GetNameList_Response: record {
     listOfIdentifier: vector of Identifier;
     moreFollows: bool;
   };
-  
+
   type Identify_Response: record {
     vendorName: string;
     modelName: string;
     revision: string;
     listOfAbstractSyntaxes: vector of string &optional;
   };
-  
+
   type AccessResult: record {
     failure: DataAccessError &optional;
     success: Data &optional;
   };
-  
+
   type Read_Response: record {
     variableAccessSpecificatn: VariableAccessSpecification &optional;
     listOfAccessResult: vector of AccessResult;
   };
-  
+
   type Write_Response: vector of record {
     failure: DataAccessError &optional;
     success: bool &optional;
   };
-  
+
   type GetVariableAccessAttributes_Response: record {
     mmsDeletable: bool;
     address: Address &optional;
     typeSpecification: TypeSpecification;
   };
-  
+
   type GetScatteredAccessAttributes_Response: record {
     mmsDeletable: bool;
     scatteredAccessDescription: ScatteredAccessDescription;
   };
-  
+
   type DeleteVariableAccess_Response: record {
     numberMatched: Unsigned32;
     numberDeleted: Unsigned32;
   };
-  
+
   type GetNamedVariableListAttributes_Response: record {
     mmsDeletable: bool;
     listOfVariable: vector of record {
@@ -1108,27 +1108,27 @@ export {
       alternateAccess: AlternateAccess &optional;
     };
   };
-  
+
   type DeleteNamedVariableList_Response: record {
     numberMatched: Unsigned32;
     numberDeleted: Unsigned32;
   };
-  
+
   type GetNamedTypeAttributes_Response: record {
     mmsDeletable: bool;
     typeSpecification: TypeSpecification;
   };
-  
+
   type DeleteNamedType_Response: record {
     numberMatched: Unsigned32;
     numberDeleted: Unsigned32;
   };
-  
+
   type TakeControl_Response: record {
     noResult: bool &optional;
     namedToken: Identifier &optional;
   };
-  
+
   type ReportSemaphoreStatus_Response: record {
     mmsDeletable: bool;
     class: enum {
@@ -1139,7 +1139,7 @@ export {
     numberOfOwnedTokens: Unsigned16;
     numberOfHungTokens: Unsigned16;
   };
-  
+
   type ReportPoolSemaphoreStatus_Response: record {
     listOfNamedTokens: vector of record {
       freeNamedToken: Identifier &optional;
@@ -1148,7 +1148,7 @@ export {
     };
     moreFollows: bool;
   };
-  
+
   type SemaphoreEntry: record {
     entryId: string;
     entryClass: enum {
@@ -1161,12 +1161,12 @@ export {
     abortOnTimeOut: bool &optional;
     relinquishIfConnectionLost: bool;
   };
-  
+
   type ReportSemaphoreEntryStatus_Response: record {
     listOfSemaphoreEntry: vector of SemaphoreEntry;
     moreFollows: bool;
   };
-  
+
   type DownloadSegment_Response: record {
     loadData: record {
       non_coded: string &optional;
@@ -1174,12 +1174,12 @@ export {
     };
     moreFollows: bool;
   };
-  
+
   type InitiateUploadSequence_Response: record {
     ulsmID: Integer32;
     listOfCapabilities: vector of string;
   };
-  
+
   type UploadSegment_Response: record {
     loadData: record {
       non_coded: string &optional;
@@ -1187,7 +1187,7 @@ export {
     };
     moreFollows: bool;
   };
-  
+
   type GetDomainAttributes_Response: record {
     listOfCapabilities: vector of string;
     state: DomainState;
@@ -1196,7 +1196,7 @@ export {
     listOfProgramInvocations: vector of Identifier;
     uploadInProgress: Integer8;
   };
-  
+
   type GetProgramInvocationAttributes_Response: record {
     state: ProgramInvocationState;
     listOfDomainNames: vector of Identifier;
@@ -1209,19 +1209,19 @@ export {
       encodedString: EXTERNALt &optional;
     } &optional;
   };
-  
+
   type FileAttributes: record {
     sizeOfFile: Unsigned32;
     lastModified: string &optional;
   };
-  
+
   type FileOpen_Response: record {
     frsmID: Integer32;
     fileAttributes: FileAttributes;
   };
-  
+
   type DeleteEventCondition_Response: Unsigned32;
-  
+
   type GetEventConditionAttributes_Response: record {
     mmsDeletable: bool;
     class: EC_Class;
@@ -1234,7 +1234,7 @@ export {
     } &optional;
     evaluationInterval: Unsigned32 &optional;
   };
-  
+
   type ReportEventConditionStatus_Response: record {
     currentState: EC_State;
     numberOfEventEnrollments: Unsigned32;
@@ -1242,18 +1242,18 @@ export {
     timeOfLastTransitionToActive: EventTime &optional;
     timeOfLastTransitionToIdle: EventTime &optional;
   };
-  
+
   type DeleteEventAction_Response: Unsigned32;
-  
+
   type GetEventActionAttributes_Response: record {
     mmsDeletable: bool;
     listOfModifier: vector of Modifier;
   };
-  
+
   type ReportEventActionStatus_Response: Unsigned32;
-  
+
   type DeleteEventEnrollment_Response: Unsigned32;
-  
+
   type AlterEventEnrollment_Response: record {
     currentState: record {
       state: EE_State &optional;
@@ -1261,7 +1261,7 @@ export {
     };
     transitionTime: EventTime;
   };
-  
+
   type ReportEventEnrollmentStatus_Response: record {
     eventConditionTransitions: Transitions;
     notificationLost: bool;
@@ -1269,7 +1269,7 @@ export {
     alarmAcknowledgmentRule: AlarmAckRule &optional;
     currentState: EE_State;
   };
-  
+
   type EventEnrollment: record {
     eventEnrollmentName: ObjectName;
     eventConditionName: record {
@@ -1286,12 +1286,12 @@ export {
     invokeID: Unsigned32;
     remainingAcceptableDelay: Unsigned32 &optional;
   };
-  
+
   type GetEventEnrollmentAttributes_Response: record {
     listOfEventEnrollment: vector of EventEnrollment;
     moreFollows: bool;
   };
-  
+
   type AlarmSummary: record {
     eventConditionName: ObjectName;
     severity: Unsigned8;
@@ -1305,12 +1305,12 @@ export {
     timeOfLastTransitionToActive: EventTime &optional;
     timeOfLastTransitionToIdle: EventTime &optional;
   };
-  
+
   type GetAlarmSummary_Response: record {
     listOfAlarmSummary: vector of AlarmSummary;
     moreFollows: bool;
   };
-  
+
   type AlarmEnrollmentSummary: record {
     eventEnrollmentName: ObjectName;
     severity: Unsigned8;
@@ -1323,49 +1323,49 @@ export {
     timeOfLastTransitionToIdle: EventTime &optional;
     timeIdleAcknowledged: EventTime &optional;
   };
-  
+
   type GetAlarmEnrollmentSummary_Response: record {
     listOfAlarmEnrollmentSummary: vector of AlarmEnrollmentSummary;
     moreFollows: bool;
   };
-  
+
   type JournalEntry: record {
     entryIdentifier: string;
     entryContent: EntryContent;
   };
-  
+
   type ReadJournal_Response: record {
     listOfJournalEntry: vector of JournalEntry;
     moreFollows: bool;
   };
-  
+
   type InitializeJournal_Response: Unsigned32;
-  
+
   type ReportJournalStatus_Response: record {
     currentEntries: Unsigned32;
     mmsDeletable: bool;
   };
-  
+
   type GetCapabilityList_Response: record {
     listOfCapabilities: vector of string;
     moreFollows: bool;
   };
-  
+
   type FileRead_Response: record {
     fileData: string;
     moreFollows: bool;
   };
-  
+
   type DirectoryEntry: record {
     filename: FileName;
     fileAttributes: FileAttributes;
   };
-  
+
   type FileDirectory_Response: record {
     listOfDirectoryEntry: vector of DirectoryEntry;
     moreFollows: bool;
   };
-  
+
   type ConfirmedServiceResponse: record {
     status: Status_Response &optional;
     getNameList: GetNameList_Response &optional;
@@ -1446,26 +1446,26 @@ export {
     fileDelete: FileDelete_Response &optional;
     fileDirectory: FileDirectory_Response &optional;
   };
-  
+
   type Confirmed_ResponsePDU: record {
     invokeID: Unsigned32;
     confirmedServiceResponse: ConfirmedServiceResponse;
     cs_request_detail: CS_Request_Detail &optional;
   };
-  
+
   type Confirmed_ErrorPDU: record {
     invokeID: Unsigned32;
     modifierPosition: Unsigned32 &optional;
     serviceError: ServiceError;
   };
-  
+
   type InformationReport: record {
     variableAccessSpecification: VariableAccessSpecification;
     listOfAccessResult: vector of AccessResult;
   };
-  
+
   type UnsolicitedStatus: Status_Response;
-  
+
   type EventNotification: record {
     eventEnrollmentName: ObjectName;
     eventConditionName: record {
@@ -1485,18 +1485,18 @@ export {
       };
     } &optional;
   };
-  
+
   type UnconfirmedService: record {
     informationReport: InformationReport &optional;
     unsolicitedStatus: UnsolicitedStatus &optional;
     eventNotification: EventNotification &optional;
   };
-  
+
   type Unconfirmed_PDU: record {
     unconfirmedService: UnconfirmedService;
     cs_request_detail: CS_Request_Detail &optional;
   };
-  
+
   type RejectPDU: record {
     originalInvokeID: Unsigned32 &optional;
     rejectReason: record {
@@ -1567,16 +1567,16 @@ export {
       } &optional;
     };
   };
-  
+
   type Cancel_RequestPDU: Unsigned32;
-  
+
   type Cancel_ResponsePDU: Unsigned32;
-  
+
   type Cancel_ErrorPDU: record {
     originalInvokeID: Unsigned32;
     serviceError: ServiceError;
   };
-  
+
   type ParameterSupportOptions: vector of enum {
     str1,
     str2,
@@ -1589,7 +1589,7 @@ export {
     real,
     cei,
   };
-  
+
   type ServiceSupportOptions: vector of enum {
     status,
     getNameList,
@@ -1677,13 +1677,13 @@ export {
     conclude,
     ServiceSupportOptions__cancel,
   };
-  
+
   type InitRequestDetail: record {
     proposedVersionNumber: Integer16;
     proposedParameterCBB: ParameterSupportOptions;
     servicesSupportedCalling: ServiceSupportOptions;
   };
-  
+
   type Initiate_RequestPDU: record {
     localDetailCalling: Integer32 &optional;
     proposedMaxServOutstandingCalling: Integer16;
@@ -1691,13 +1691,13 @@ export {
     proposedDataStructureNestingLevel: Integer8 &optional;
     mmsInitRequestDetail: InitRequestDetail;
   };
-  
+
   type InitResponseDetail: record {
     negociatedVersionNumber: Integer16;
     negociatedParameterCBB: ParameterSupportOptions;
     servicesSupportedCalled: ServiceSupportOptions;
   };
-  
+
   type Initiate_ResponsePDU: record {
     localDetailCalled: Integer32 &optional;
     negociatedMaxServOutstandingCalling: Integer16;
@@ -1705,11 +1705,11 @@ export {
     negociatedDataStructureNestingLevel: Integer8 &optional;
     mmsInitResponseDetail: InitResponseDetail;
   };
-  
+
   type Initiate_ErrorPDU: ServiceError;
-  
+
   type Conclude_ErrorPDU: ServiceError;
-  
+
   type MMSpdu: record {
     confirmed_RequestPDU: Confirmed_RequestPDU &optional;
     confirmed_ResponsePDU: Confirmed_ResponsePDU &optional;
@@ -1726,8 +1726,8 @@ export {
     conclude_ResponsePDU: Conclude_ResponsePDU &optional;
     conclude_ErrorPDU: Conclude_ErrorPDU &optional;
   };
-  
-  
+
+
   # ======== SELF DEPENDENT TYPES =======
   redef record TypeSpecification += {
     typeName: ObjectName &optional;
@@ -1754,7 +1754,7 @@ export {
     bcd: Unsigned8 &optional;
     objId: bool &optional;
   };
-  
+
   redef record VariableSpecification += {
     name: ObjectName &optional;
     address: Address &optional;
@@ -1765,7 +1765,7 @@ export {
     scatteredAccessDescription: ScatteredAccessDescription &optional;
     invalidated: bool &optional;
   };
-  
+
   redef record AlternateAccess += {
     unnamed: AlternateAccessSelection &optional;
     named: record {
@@ -1773,7 +1773,7 @@ export {
       accesst: AlternateAccessSelection;
     } &optional;
   };
-  
+
   redef record AlternateAccessSelection += {
     selectAlternateAccess: record {
       accessSelection: record {
@@ -1797,13 +1797,13 @@ export {
       allElements: bool &optional;
     } &optional;
   };
-  
+
   redef record ScatteredAccessDescription += {
     componentName: Identifier &optional;
     variableSpecification: VariableSpecification &optional;
     alternateAccess: AlternateAccess &optional;
   };
-  
+
   redef record Data += {
     array: vector of Data &optional;
     structure: vector of Data &optional;
@@ -1821,5 +1821,5 @@ export {
     mMSString: MMSString &optional;
     utc_time: UtcTime &optional;
   };
-  
+
 }
