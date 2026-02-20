@@ -111,11 +111,17 @@ function typeSpecification_to_string(ts: TypeSpecification, fieldName: string &d
     local val_f: string="";
     local val_t: string="";
     local val_n: string=fieldName;
+    local val_l: string="";
 
     if(ts ?$ array) {
         val_t = "array";
         val_f += typeSpecification_to_string(ts$array$elementType);
-    } else if(ts ?$ structure) {
+        val_l = cat(ts$array$numberOfElements);
+
+        return "{\"name\": \""+val_n+"\", \"type\": \""+val_t+"\", \"len\": "+val_l+", \"fields\": ["+val_f+"]}";
+    }
+
+    if(ts ?$ structure) {
         val_t = "structure";
         for(i in ts$structure$components) {
             local comp = ts$structure$components[i];
@@ -123,7 +129,11 @@ function typeSpecification_to_string(ts: TypeSpecification, fieldName: string &d
                 val_f+=",";
             val_f += typeSpecification_to_string(comp$componentType, comp$componentName);
         }
-    } else if(ts ?$ boolean) {
+
+        return "{\"name\": \""+val_n+"\", \"type\": \""+val_t+"\", \"fields\": ["+val_f+"]}";
+    }
+
+    if(ts ?$ boolean) {
         val_t = "bool";
     } else if(ts ?$ bit_string) {
         val_t = "bitString";
@@ -139,7 +149,7 @@ function typeSpecification_to_string(ts: TypeSpecification, fieldName: string &d
         val_t = "<unknown>";
     }
 
-    return "{\"name\": \""+val_n+"\", \"type\": \""+val_t+"\", \"fields\": ["+val_f+"]}";
+    return "{\"name\": \""+val_n+"\", \"type\": \""+val_t+"\"}";
 }
 
 

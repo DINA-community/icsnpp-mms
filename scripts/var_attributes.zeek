@@ -35,7 +35,7 @@ event VariableAccessAttributes(c: connection, request: GetVariableAccessAttribut
         $uid=c$uid,
         $id=c$id,
         $variable=objectName_to_string(request$name),
-        $attributes=typeSpecification_to_string(response$typeSpecification),
+        $attributes=typeSpecification_to_string(response$typeSpecification, objectName_to_string(request$name)),
         $success=T
     );
 
