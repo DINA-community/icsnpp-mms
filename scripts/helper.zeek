@@ -39,7 +39,11 @@ function data_to_string(data: Data): string {
         }
         val+="]";
         val_t = "array";
-    } else if (data?$structure) {
+
+        return "{\"type\": \""+val_t+"\", \"values\": "+val+"}";
+    }
+
+    if (data?$structure) {
         val+="[";
         for(i in data $ structure) {
             if(i!=0)
@@ -48,7 +52,11 @@ function data_to_string(data: Data): string {
         }
         val+="]";
         val_t = "structure";
-    } else if(data?$boolean) {
+
+        return "{\"type\": \""+val_t+"\", \"fields\": "+val+"}";
+    }
+
+    if(data?$boolean) {
         val = to_json(fmt("%s", data$boolean));
         val_t = "boolean";
     } else if(data?$bit_string) {
@@ -79,8 +87,8 @@ function data_to_string(data: Data): string {
         val = to_json("0x" + string_to_ascii_hex(data$utc_time));
         val_t = "utc_time";
     } else {
-        val = to_json("<unknown>");
-        val_t = "bit_string";
+        val = "\"<unknown>\"";
+        val_t = "visible_string";
     }
 
     return "{\"type\": \""+val_t+"\", \"value\": "+val+"}";
