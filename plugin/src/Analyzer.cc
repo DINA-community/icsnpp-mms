@@ -16,8 +16,10 @@ void Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t, c
     auto desc = &asn_DEF_MMSpdu;
 
     asn_dec_rval_t rval = ber_decode(nullptr, desc, reinterpret_cast<void**>(&pdu_raw), data, len);
-    if(rval.code != RC_OK) {
+    if(rval.code != RC_OK || !pdu_raw) {
         Weird("mms_parse_error", "unable to parse packet");
+        if(pdu_raw)
+            desc->free_struct(desc, pdu_raw, 0);
         return;
     }
     // For debugging purposes
