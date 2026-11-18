@@ -234,12 +234,16 @@ event readResponse(c: connection, invokeID: int, pdu: Read_Response) {
 # =====================================================================
 event writeRequest(c: connection, invokeID: int, pdu: Write_Request) {
     c $ mms_write_requests[invokeID] = pdu;
-    for (i in pdu $ variableAccessSpecificatn $ listOfVariable) {
-        event VariableWriteRequest(
-            c,
-            pdu $ variableAccessSpecificatn $ listOfVariable[i] $ variableSpecification $ name,
-            pdu $ listOfData[i]
-        );
+    # variableAccessSpecificatn is a CHOICE: a named-list write carries
+    # variableListName and no listOfVariable (readRequest guards the same way).
+    if (pdu $ variableAccessSpecificatn ?$ listOfVariable) {
+        for (i in pdu $ variableAccessSpecificatn $ listOfVariable) {
+            event VariableWriteRequest(
+                c,
+                pdu $ variableAccessSpecificatn $ listOfVariable[i] $ variableSpecification $ name,
+                pdu $ listOfData[i]
+            );
+        }
     }
     if (pdu $ variableAccessSpecificatn ?$ variableListName) {
         event VariableListWriteRequest(
