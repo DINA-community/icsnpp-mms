@@ -1,5 +1,12 @@
 module mms;
 
+export {
+    # A consumer keying on a variable reference -- an IEC 61850 control
+    # object, say -- needs to render an ObjectName. Without this the
+    # function is module-private and every consumer re-implements it.
+    global objectName_to_string: function(name: ObjectName): string;
+}
+
 function remove_ns(val: string): string {
     local parts = split_string(val, /::/);
     local len = |parts|;

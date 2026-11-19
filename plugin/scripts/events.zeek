@@ -36,6 +36,25 @@ export {
     global confirmedErrorPDU_evt: event(c: connection, invokeID: int, pdu: Confirmed_ErrorPDU);
 
     # =====================================================================
+    # File services (ISO 9506-2 clause 14). The ASN.1 layer already decodes
+    # each of these; these events make them reachable from a script.
+    # =====================================================================
+    global obtainFileRequest: event(c: connection, invokeID: int, pdu: ObtainFile_Request);
+    global fileOpenRequest: event(c: connection, invokeID: int, pdu: FileOpen_Request);
+    global fileReadRequest: event(c: connection, invokeID: int, pdu: FileRead_Request);
+    global fileCloseRequest: event(c: connection, invokeID: int, pdu: FileClose_Request);
+    global fileRenameRequest: event(c: connection, invokeID: int, pdu: FileRename_Request);
+    global fileDeleteRequest: event(c: connection, invokeID: int, pdu: FileDelete_Request);
+    global fileDirectoryRequest: event(c: connection, invokeID: int, pdu: FileDirectory_Request);
+    global obtainFileResponse: event(c: connection, invokeID: int, pdu: ObtainFile_Response);
+    global fileOpenResponse: event(c: connection, invokeID: int, pdu: FileOpen_Response);
+    global fileReadResponse: event(c: connection, invokeID: int, pdu: FileRead_Response);
+    global fileCloseResponse: event(c: connection, invokeID: int, pdu: FileClose_Response);
+    global fileRenameResponse: event(c: connection, invokeID: int, pdu: FileRename_Response);
+    global fileDeleteResponse: event(c: connection, invokeID: int, pdu: FileDelete_Response);
+    global fileDirectoryResponse: event(c: connection, invokeID: int, pdu: FileDirectory_Response);
+
+    # =====================================================================
     # The following event is called when a identify response is seen.
     # =====================================================================
     global IdentifyResponse: event (c: connection, id: Identify_Response);
@@ -123,6 +142,48 @@ event mms::mms_pdu(c: connection, is_orig: bool, pdu: MMSpdu) {
                 pdu $ confirmed_RequestPDU $ invokeID,
                 pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ getNamedVariableListAttributes
             );
+        } else if(pdu $ confirmed_RequestPDU $ confirmedServiceRequest ?$ obtainFile) {
+            event obtainFileRequest(
+                c,
+                pdu $ confirmed_RequestPDU $ invokeID,
+                pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ obtainFile
+            );
+        } else if(pdu $ confirmed_RequestPDU $ confirmedServiceRequest ?$ fileOpen) {
+            event fileOpenRequest(
+                c,
+                pdu $ confirmed_RequestPDU $ invokeID,
+                pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ fileOpen
+            );
+        } else if(pdu $ confirmed_RequestPDU $ confirmedServiceRequest ?$ fileRead) {
+            event fileReadRequest(
+                c,
+                pdu $ confirmed_RequestPDU $ invokeID,
+                pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ fileRead
+            );
+        } else if(pdu $ confirmed_RequestPDU $ confirmedServiceRequest ?$ fileClose) {
+            event fileCloseRequest(
+                c,
+                pdu $ confirmed_RequestPDU $ invokeID,
+                pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ fileClose
+            );
+        } else if(pdu $ confirmed_RequestPDU $ confirmedServiceRequest ?$ fileRename) {
+            event fileRenameRequest(
+                c,
+                pdu $ confirmed_RequestPDU $ invokeID,
+                pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ fileRename
+            );
+        } else if(pdu $ confirmed_RequestPDU $ confirmedServiceRequest ?$ fileDelete) {
+            event fileDeleteRequest(
+                c,
+                pdu $ confirmed_RequestPDU $ invokeID,
+                pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ fileDelete
+            );
+        } else if(pdu $ confirmed_RequestPDU $ confirmedServiceRequest ?$ fileDirectory) {
+            event fileDirectoryRequest(
+                c,
+                pdu $ confirmed_RequestPDU $ invokeID,
+                pdu $ confirmed_RequestPDU $ confirmedServiceRequest $ fileDirectory
+            );
         }
     } else if(pdu ?$ confirmed_ResponsePDU) {
         if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ read) {
@@ -159,6 +220,48 @@ event mms::mms_pdu(c: connection, is_orig: bool, pdu: MMSpdu) {
             event IdentifyResponse(
                 c,
                 pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ identify
+            );
+        } else if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ obtainFile) {
+            event obtainFileResponse(
+                c,
+                pdu $ confirmed_ResponsePDU $ invokeID,
+                pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ obtainFile
+            );
+        } else if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ fileOpen) {
+            event fileOpenResponse(
+                c,
+                pdu $ confirmed_ResponsePDU $ invokeID,
+                pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ fileOpen
+            );
+        } else if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ fileRead) {
+            event fileReadResponse(
+                c,
+                pdu $ confirmed_ResponsePDU $ invokeID,
+                pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ fileRead
+            );
+        } else if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ fileClose) {
+            event fileCloseResponse(
+                c,
+                pdu $ confirmed_ResponsePDU $ invokeID,
+                pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ fileClose
+            );
+        } else if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ fileRename) {
+            event fileRenameResponse(
+                c,
+                pdu $ confirmed_ResponsePDU $ invokeID,
+                pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ fileRename
+            );
+        } else if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ fileDelete) {
+            event fileDeleteResponse(
+                c,
+                pdu $ confirmed_ResponsePDU $ invokeID,
+                pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ fileDelete
+            );
+        } else if(pdu $ confirmed_ResponsePDU $ confirmedServiceResponse ?$ fileDirectory) {
+            event fileDirectoryResponse(
+                c,
+                pdu $ confirmed_ResponsePDU $ invokeID,
+                pdu $ confirmed_ResponsePDU $ confirmedServiceResponse $ fileDirectory
             );
         }
 
