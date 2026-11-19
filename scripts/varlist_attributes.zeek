@@ -10,7 +10,7 @@ export {
         ts:         time     &log;
         uid:        string   &log;
         id:         conn_id  &log;
-        list:       string   &log &optional;
+        list_name:  string   &log &optional;
         attributes: string   &log &optional;
         success:    bool     &log;
         diag:       string   &log &optional;
@@ -33,7 +33,7 @@ event NamedVariableListAttributes(c: connection, request: GetNamedVariableListAt
 
     if(!log_varlist_attributes) return;
 
-    local list = objectName_to_string(request);
+    local list_name = objectName_to_string(request);
     local attributes = "";
 
     attributes += "[";
@@ -48,7 +48,7 @@ event NamedVariableListAttributes(c: connection, request: GetNamedVariableListAt
         $ts=network_time(),
         $uid=c$uid,
         $id=c$id,
-        $list=list,
+        $list_name=list_name,
         $attributes=attributes,
         $success=T
     );
@@ -60,12 +60,12 @@ event NamedVariableListAttributesError (c: connection, request: GetNamedVariable
 
     if(!log_varlist_attributes) return;
 
-    local list = objectName_to_string(request);
+    local list_name = objectName_to_string(request);
     local rec=record(
         $ts=network_time(),
         $uid=c$uid,
         $id=c$id,
-        $list=list,
+        $list_name=list_name,
         $success=F,
         $diag=errorClass_to_string(response$serviceError)
     );
